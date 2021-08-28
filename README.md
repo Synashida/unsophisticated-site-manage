@@ -1,0 +1,2 @@
+# unsophisticated-site-manage
+静的コンテンツだけで構成されるようなシンプルなサイトの開発に利用できる簡易Dockerコンテナ
