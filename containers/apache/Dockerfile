@@ -1,12 +1,9 @@
 FROM alpine:latest
 
-ENV COMPOSER_ALLOW_SUPERUSER 1
-ENV COMPOSER_HOME /composer
-ENV PATH $PATH:/composer/vendor/bin
-
 COPY startup.sh /startup.sh
 
-RUN chmod 755 /startup.sh \
+RUN mkdir -p /var/www/user-apps && chmod 755 /var/www/user-apps \
+    && chmod 755 /startup.sh \
     && apk update \
     && apk add --no-cache \
     sudo tzdata apache2 apache2-http2 php8 php8-apache2 php8-pgsql php8-pear php8-phar php8-zip php8-json php8-common \
@@ -28,6 +25,10 @@ RUN chmod 755 /startup.sh \
     && echo "apache ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 WORKDIR /var/www/vhostmanager
+
+ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV COMPOSER_HOME /composer
+ENV PATH $PATH:/composer/vendor/bin
 
 EXPOSE 80
 CMD ["/startup.sh"]
