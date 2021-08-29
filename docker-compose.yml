@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  web:
+    container_name: web
+    build:
+      context: ./containers/apache
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    volumes:
+      - "./containers/apache/user-vhosts:/etc/apache2/conf.d/vhosts:rw"
+      - "./containers/apache/vhosts-manager:/var/www/vhostmanager:rw"
+      - "./user-apps:/var/www/user-apps:rw"
