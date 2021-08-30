@@ -1,6 +1,7 @@
 version: "3"
 
 services:
+  # Webサーバの設定
   web:
     container_name: web
     depends_on:
@@ -15,6 +16,15 @@ services:
       - "./containers/apache/vhosts-manager:/var/www/vhostmanager:rw"
       - "./user-apps:/var/www/user-apps:rw"
 
+  # メールサーバの設定
+  mail:
+    container_name: mail
+    image: kanemu/maildev-with-iconv
+    ports:
+      - "1025:25"
+      - "8025:80"
+
+  # wordpress用データベースサーバの設定
   db:
     container_name: db
     image: mariadb:latest
@@ -26,6 +36,7 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: hogehoge
 
+  # dbのGUI設定
   adminer:
     container_name: adminer
     image: adminer
