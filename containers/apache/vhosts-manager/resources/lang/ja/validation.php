@@ -116,6 +116,10 @@ return [
     'uploaded'             => ':attributeのアップロードに失敗しました。',
     'url'                  => ':attributeに正しい形式を指定してください。',
     'uuid'                 => ':attributeに有効なUUIDを指定してください。',
+    'already_exist_vhost'  => ':attributeはすでに登録されています。別のドメイン名を入力してください。',
+    'already_exist_db'     => ':attributeはすでに登録されています。別のDB名を入力してください。',
+    'db_required'          => 'Wordpress利用時はDB名を入力してください。',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -147,6 +151,8 @@ return [
 
     'attributes' => [
         'domain_name' => 'ドメイン名',
+        'db_name' => 'DB名',
+        'use_wp' => 'Wordpress利用',
     ],
 
 ];

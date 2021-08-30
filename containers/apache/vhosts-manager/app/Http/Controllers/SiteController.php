@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Rules\ExistHost;
+use App\Rules\ExistDB;
+use App\Rules\UseDBRequired;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Services\Utility;
@@ -22,35 +25,19 @@ class SiteController extends Controller
 
     public function addStore(Request $request)
     {
-        $validated = Validator::make($request->all(), [
-            'domain_name' => 'required|max:255',
-        ]);
+        $rules = [
+            'domain_name' => ['required', 'max:255', new ExistHost()],
+            'db_name' => [new UseDBRequired(),new ExistDB()],
+        ];
+
+        $validated = Validator::make($request->all(), $rules);
         if ($validated->fails()) {
             return redirect('/')
                         ->withErrors($validated)
                         ->withInput();
         }
-        Utility::createVhost($_REQUEST['domain_name']);
+        Utility::createVhost($_REQUEST['domain_name'], @$_REQUEST['use_wp'], @$_REQUEST['db_name']);
         return redirect('/?er_type=add&state=1&d='.urlencode($_REQUEST['domain_name']));
-    }
-
-    public function edit(Request $request)
-    {
-        $validated = Validator::make($request->all(), [
-            'domain_name' => 'required|max:255',
-        ]);
-        if ($validated->fails()) {
-            return redirect('/');
-        }
-
-        $targetHost = Utility::getHostInfo($_REQUEST['domain_name']);
-        if (count($targetHost) == 0) {
-            return redirect('/');
-        }
-    }
-
-    public function editStore(Request $request)
-    {
     }
 
     public function delete(Request $request)

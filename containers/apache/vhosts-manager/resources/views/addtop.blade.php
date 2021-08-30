@@ -33,17 +33,39 @@
                 </div>
                 @endif
 
-                <form action="/add/store" method="POST">
+                <form id="frm" action="/add/store" method="POST">
                     @csrf
-                    <div class="form-group @error('domain_name') has-error @enderror">
+                    <div class="form-group col-xs-12 @error('domain_name') has-error @enderror">
                         <label class="form-label">ドメイン名</label>
-                        <input type="text" name="domain_name" class="form-control" placeholder="検証ドメイン名を入力してください">
+                        <input type="text" name="domain_name" class="form-control" placeholder="検証ドメイン名を入力してください"
+                            value="{{ old('domain_name') }}">
                         @error('domain_name')
                         <span class="help-block"><i class="fa fa-warning"></i> {{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary">作成する</button>
+
+                    <div class="form-group col-xs-3 @error('use_wp') has-error @enderror">
+                        <label class="form-label">wordpressを利用する</label>
+                        <input type="checkbox" name="use_wp" class="form-control" value="1"
+                            onclick="$('#db_name').attr('readonly', !$(this).prop('checked'));" @if (old('use_wp'))
+                            checked="checked" @endif>
+                        @error('use_wp')
+                        <span class="help-block"><i class="fa fa-warning"></i> {{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-xs-9 @error('db_name') has-error @enderror">
+                        <label class="form-label">DB名</label>
+                        <input type="text" name="db_name" id="db_name" @if (!old('use_wp')) readonly="readonly" @endif
+                            class="form-control" placeholder="DB名を半角英数で入力してください。" value="{{ old('db_name') }}">
+                        @error('db_name')
+                        <span class="help-block"><i class="fa fa-warning"></i> {{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-xs-12">
+                        <button type="button" class="btn btn-primary"
+                            onclick="if (confirm('作成します。よろしいですか？')) { $('#loading').css('visibility', 'visible'); setTimeout('$(\'#frm\').submit();', 100); } else { return false; }">作成する</button>
                     </div>
                 </form>
                 <div class="row">

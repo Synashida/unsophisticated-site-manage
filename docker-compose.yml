@@ -3,6 +3,8 @@ version: "3"
 services:
   web:
     container_name: web
+    depends_on:
+      - db
     build:
       context: ./containers/apache
       dockerfile: Dockerfile
@@ -12,3 +14,24 @@ services:
       - "./containers/apache/user-vhosts:/etc/apache2/conf.d/vhosts:rw"
       - "./containers/apache/vhosts-manager:/var/www/vhostmanager:rw"
       - "./user-apps:/var/www/user-apps:rw"
+
+  db:
+    container_name: db
+    image: mariadb:latest
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: hogehoge
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+volumes:
+    db_data:

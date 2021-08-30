@@ -18,6 +18,46 @@
 </head>
 
 <body>
+
+<style>
+    .loading-blur {
+        filter: blur(10px);
+        animation-name: blur;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+    }
+
+    @keyframes blur {
+        0% {
+            filter: blur(5px);
+        }
+
+        100% {
+            filter: blur(0);
+        }
+    }
+
+    #loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.5);
+        z-index: 999;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+    }
+</style>
+
+<div id="loading" class="loading-blur">
+    <img src="images/wait.png">
+</div>
+
+
     <div class="header">
         <div class="container">
             <div class="row">

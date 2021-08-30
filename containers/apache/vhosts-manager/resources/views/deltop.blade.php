@@ -20,7 +20,7 @@
                 </div>
                 @endif
 
-                <form action="/delete/exec" method="POST">
+                <form id="frm" action="/delete/exec" method="POST">
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="alert alert-danger">
@@ -44,7 +44,8 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-danger" onclick="return confirm('本当に削除を実行しても良いですか？');">削除する</button>
+                        <button type="button" class="btn btn-danger"
+                            onclick="if (confirm('本当に削除を実行しても良いですか？')) { $('#loading').css('visibility', 'visible'); setTimeout('$(\'#frm\').submit();', 100); } else { return false;}">削除する</button>
                     </div>
                 </form>
             </div>
