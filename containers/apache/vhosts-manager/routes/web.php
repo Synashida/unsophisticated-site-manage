@@ -17,3 +17,4 @@ Route::get('/', 'App\Http\Controllers\SiteController@create');
 Route::post('/add/store', 'App\Http\Controllers\SiteController@addStore');
 Route::get('/delete', 'App\Http\Controllers\SiteController@delete');
 Route::post('/delete/exec', 'App\Http\Controllers\SiteController@deleteExec');
+Route::get('/show_server_info', 'App\Http\Controllers\SiteController@showServerInfo');

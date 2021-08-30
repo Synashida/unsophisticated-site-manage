@@ -23,6 +23,12 @@ class SiteController extends Controller
         ]);
     }
 
+    public function showServerInfo()
+    {
+        phpinfo();
+        exit;
+    }
+
     public function addStore(Request $request)
     {
         $rules = [

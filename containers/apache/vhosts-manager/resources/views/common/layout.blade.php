@@ -77,6 +77,11 @@
                 <div class="sidebar content-box" style="display: block;">
                     <ul class="nav">
                         <!-- Main menu -->
+                        <li>
+                            <a href="/show_server_info">
+                            <i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i> サーバ情報の表示
+                            </a>
+                        </li>
                         <li @if ($current=='add') class="current" @endif>
                             <a href="/">
                                 <i class="glyphicon glyphicon-plus"></i> サイト新規追加
