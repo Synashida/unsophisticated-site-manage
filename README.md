@@ -16,9 +16,12 @@
 
 ## 手順
 
-1. このリポジトリをクローン
-2. docker-compose up -d
-3. http://localhost:8000
+
+1. hostsに127.0.0.1 test.localを追記する
+2. ping test.localでpingが通ることを確認する。
+3. このリポジトリをクローン
+4. docker-compose up -d
+5. http://localhost:8000
    
 ## Tips
 
