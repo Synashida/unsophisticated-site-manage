@@ -22,7 +22,7 @@ class Utility
             </IfModule>
         </VirtualHost>';
     const DB_USER = 'root';
-    const DB_PASSWORD = 'hogehoge';
+    const DB_PASSWORD = 'mysqladmin';
     const DB_HOST = 'db';
 
     public static function reloadAapach()

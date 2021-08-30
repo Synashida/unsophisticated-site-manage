@@ -34,7 +34,7 @@ services:
       - 3306:3306
     restart: always
     environment:
-      MARIADB_ROOT_PASSWORD: hogehoge
+      MARIADB_ROOT_PASSWORD: mysqladmin
 
   # dbのGUI設定
   adminer:
