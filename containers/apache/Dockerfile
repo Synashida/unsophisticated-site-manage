@@ -6,12 +6,14 @@ RUN mkdir -p /var/www/user-apps && chmod 755 /var/www/user-apps \
     && chmod 755 /startup.sh \
     && apk update \
     && apk add --no-cache \
-    sudo tzdata apache2 apache2-http2 mysql-client php php-apache2 php-pgsql php7-mysqli php-pdo_mysql php-pear php-phar php-zip php-json php-common \
-    php-curl php-exif php-fileinfo php-fpm php-gd php-iconv php-gmp \
+    sudo ssmtp tzdata apache2 apache2-http2 mysql-client php php-apache2 php-pgsql php7-mysqli php-pdo_mysql php-pear php-phar php-zip php-json php-common \
+    php-curl php-exif php-fileinfo php-fpm php-gd php-iconv php-gmp php-ctype \
     php-mbstring php-openssl php-pdo php-pdo_pgsql php-session \
     php-xml php-sockets php-xmlreader php-xmlwriter php-xsl php-tokenizer php-dom \
     && sed -i 's/;date.timezone =/date.timezone = "Asia\/Tokyo"/g' /etc/php7/php.ini \
     && sed -i 's/;error_log = syslog/error_log = \/var\/www\/vhostmanager\/storage\/logs\/php_error_log.log/g' /etc/php7/php.ini \
+    && sed -i 's/SMTP = localhost/SMTP = mail/g' /etc/php7/php.ini \
+    && sed -i 's/;mail.log =/mail.log = \/var\/www\/vhostmanager\/storage\/logs\/mail_log.log/g' /etc/php7/php.ini \
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php \
     && php -r "unlink('composer-setup.php');" \

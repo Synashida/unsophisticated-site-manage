@@ -4,8 +4,6 @@ services:
   # Webサーバの設定
   web:
     container_name: web
-    depends_on:
-      - db
     build:
       context: ./containers/apache
       dockerfile: Dockerfile
@@ -15,6 +13,9 @@ services:
       - "./containers/apache/user-vhosts:/etc/apache2/conf.d/vhosts:rw"
       - "./containers/apache/vhosts-manager:/var/www/vhostmanager:rw"
       - "./user-apps:/var/www/user-apps:rw"
+    networks:
+      uns_net:
+        ipv4_address: 190.0.0.10
 
   # メールサーバの設定
   mail:
@@ -23,6 +24,9 @@ services:
     ports:
       - "1025:25"
       - "8025:80"
+    networks:
+      uns_net:
+        ipv4_address: 190.0.0.11
 
   # wordpress用データベースサーバの設定
   db:
@@ -35,6 +39,9 @@ services:
     restart: always
     environment:
       MARIADB_ROOT_PASSWORD: mysqladmin
+    networks:
+      uns_net:
+        ipv4_address: 190.0.0.12
 
   # dbのGUI設定
   adminer:
@@ -43,6 +50,17 @@ services:
     restart: always
     ports:
       - 8080:8080
+    networks:
+      uns_net:
+        ipv4_address: 190.0.0.20
 
 volumes:
     db_data:
+
+networks:
+  uns_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 190.0.0.0/24
