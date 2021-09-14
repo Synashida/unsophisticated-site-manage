@@ -46,7 +46,7 @@ class Utility
         $vhostDocRoot = self::getVhostDocRoot($vhostDomain);
         if (!file_exists($vhostDocRoot)) {
             shell_exec("sudo mkdir -p {$vhostDocRoot}");
-            shell_exec("chmod 777 {$vhostDocRoot}");
+            shell_exec("sudo chmod 777 {$vhostDocRoot}");
         }
     }
 
